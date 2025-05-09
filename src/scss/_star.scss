@@ -1,0 +1,113 @@
+// Star rating and animation styles
+@import 'variables';
+@import 'mixins';
+
+.star {
+  // Star container
+  &-container {
+    @include flex-center;
+    margin: $spacing-md 0;
+  }
+  
+  // Star rating display
+  &-rating {
+    display: inline-flex;
+    align-items: center;
+    
+    span {
+      color: #ffd700; // Gold color for stars
+      font-size: $font-size-xl;
+      transition: transform $transition-medium;
+      
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  // Individual star
+  &-icon {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 2px;
+    
+    // Star shape using pseudo elements
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+      );
+    }
+    
+    // Star animation
+    &.animated {
+      animation: star-pulse 1.5s infinite alternate;
+    }
+  }
+  
+  // Star badge
+  &-badge {
+    background: linear-gradient(45deg, $color-primary, darken($color-primary, 15%));
+    color: $color-white;
+    border-radius: $radius-round;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    padding: 4px 12px;
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+}
+
+// Star animations
+@keyframes star-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+// Star glow effect
+.glow {
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+// Character favorite (starred) state
+.character-card.starred {
+  border: 2px solid #ffd700;
+  position: relative;
+  
+  &::after {
+    content: '★';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: $font-size-xl;
+    color: #ffd700;
+    z-index: 2;
+  }
+}

@@ -1,0 +1,205 @@
+// Base styles for the body and core elements
+@import 'variables';
+@import 'mixins';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-base;
+  background-color: $color-background;
+  color: $color-text;
+  line-height: 1.6;
+}
+
+button {
+  font-family: $font-family-base;
+}
+
+input {
+  font-family: $font-family-base;
+}
+
+// Character Component Styles
+.character {
+  &-card {
+    @include card;
+    transition: transform $transition-medium, box-shadow $transition-medium;
+    @include flex-column;
+    height: 100%;
+    padding: $spacing-lg;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow-lg;
+    }
+  }
+  
+  &-info {
+    flex: 1;
+  }
+  
+  &-name {
+    margin: 0 0 $spacing-md 0;
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: $color-secondary;
+    border-bottom: 2px solid $color-border-light;
+    padding-bottom: $spacing-sm;
+  }
+  
+  &-details {
+    @include flex-column;
+    gap: $spacing-sm;
+  }
+}
+
+.detail {
+  &-item {
+    @include flex-between;
+  }
+  
+  &-label {
+    font-weight: 500;
+    color: $color-text-light;
+    font-size: $font-size-sm;
+  }
+  
+  &-value {
+    color: $color-text;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: $radius-circle;
+  display: inline-block;
+  border: 1px solid $color-border;
+}
+
+// Characters Container Styles
+.characters {
+  &-container {
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+    padding: $spacing-xl;
+    min-height: 100vh;
+    @include flex-column;
+    
+    @include respond-to(medium) {
+      padding: $spacing-lg;
+    }
+    
+    @include respond-to(small) {
+      padding: $spacing-md;
+    }
+  }
+  
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    flex: 1;
+    
+    @include respond-to(medium) {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: $spacing-lg;
+    }
+    
+    @include respond-to(small) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// App Header & Footer
+.app {
+  &-header {
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    
+    h1 {
+      font-size: $font-size-xxxl;
+      color: $color-secondary;
+      margin-bottom: $spacing-lg;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      
+      @include respond-to(medium) {
+        font-size: $font-size-xxl;
+      }
+      
+      @include respond-to(small) {
+        font-size: $font-size-xl;
+      }
+    }
+  }
+  
+  &-footer {
+    margin-top: auto;
+    text-align: center;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $color-border;
+    color: $color-text-lighter;
+    font-size: $font-size-sm;
+  }
+}
+
+// Loading state
+.loading {
+  &-container {
+    @include flex-center;
+    flex-direction: column;
+    margin: $spacing-xxl 0;
+    color: $color-text-light;
+  }
+  
+  &-spinner {
+    @include spinner(50px, 4px, $color-primary);
+    margin-bottom: $spacing-md;
+  }
+}
+
+// Error state
+.error {
+  &-container {
+    background-color: $color-error-bg;
+    border: 1px solid $color-error-light;
+    border-radius: $radius-md;
+    padding: $spacing-xl;
+    text-align: center;
+    color: $color-error;
+    margin: $spacing-xl auto;
+    max-width: 600px;
+  }
+  
+  &-icon {
+    font-size: $font-size-xxl;
+    font-weight: 700;
+    width: 50px;
+    height: 50px;
+    line-height: 46px;
+    border-radius: $radius-circle;
+    border: 2px solid $color-error;
+    margin: 0 auto $spacing-md;
+  }
+}
+
+.retry-button {
+  @include button($color-error, $color-white);
+  margin-top: $spacing-md;
+}
+
+.timestamp {
+  margin-top: $spacing-xs;
+  font-size: $font-size-xs;
+}
